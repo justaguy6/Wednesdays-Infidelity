@@ -98,7 +98,7 @@ class Song
 
 		if (rawJson == null)
 		{
-			#if sys
+			#if desktop 
 			rawJson = File.getContent(Paths.json(formattedFolder + '/' + formattedSong)).trim();
 			#else
 			rawJson = Assets.getText(Paths.json(formattedFolder + '/' + formattedSong)).trim();
