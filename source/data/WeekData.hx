@@ -96,8 +96,10 @@ class WeekData
 
 	public static function reloadWeekFiles(isStoryMode:Null<Bool> = false)
 	{
+		#if android
 		weeksList = [];
 		weeksLoaded.clear();
+		
 		var directories:Array<String> = [Paths.getPreloadPath()];
 		var originalLength:Int = directories.length;
 
@@ -126,7 +128,7 @@ class WeekData
 				}
 			}
 		}
-
+                #elseif desktop 
 		for (i in 0...directories.length)
 		{
 			var directory:String = directories[i] + 'weeks/';
@@ -153,7 +155,7 @@ class WeekData
 			}
 		}
 	}
-
+        #end
 	private static function addWeek(weekToCheck:String, path:String, directory:String, i:Int, originalLength:Int)
 	{
 		if (!weeksLoaded.exists(weekToCheck))
