@@ -106,11 +106,12 @@ class CutsceneState extends MusicBeatState // PlayState is alreadly laggy enough
 		}
 	}
 
-	public function playVideo(videoName:String, ?skippable:Bool = false, ?focus:Bool = true)
-	{
-		#if VIDEOS_ALLOWED
+	#if VIDEOS_ALLOWED
 		var foundFile:Bool = false;
 		var fileName:String = Paths.video(videoName);
+		
+		trace(fileName);
+		trace('FileSystem.exists(fileName) = ' + FileSystem.exists(fileName));
 
 		if (FileSystem.exists(fileName))
 		{
@@ -119,7 +120,9 @@ class CutsceneState extends MusicBeatState // PlayState is alreadly laggy enough
 
 		if (foundFile)
 		{
-			var video = new FlxVideo(fileName, skippable, focus);
+			var video = new VideoHandler();
+			video.canSkip = skippable;
+			video.playVideo(fileName, false, true, true);
 
 			video.finishCallback = function()
 			{
@@ -135,7 +138,6 @@ class CutsceneState extends MusicBeatState // PlayState is alreadly laggy enough
 		#else
 		finish();
 		#end
-	}
 
 	public function finish()
 	{
